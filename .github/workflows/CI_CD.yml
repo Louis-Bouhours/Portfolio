@@ -4,7 +4,12 @@ on:
     branches: ["main"]
   pull_request:
     branches: ["main"]
-    workflow_dispatch:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  security-events: write
+  actions: read
 
 jobs:
   quality-security:
