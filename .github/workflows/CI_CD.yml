@@ -79,9 +79,9 @@ jobs:
           envs: GITHUB_REPOSITORY,GITHUB_ACTOR,GITHUB_TOKEN
           script: |
             docker login ghcr.io -u $GITHUB_ACTOR -p $GITHUB_TOKEN
-            IMAGE_NAME="ghcr.io/$(echo $GITHUB_REPOSITORY | tr '[:upper:]' '[:lower:]')" && \
-            echo "Using image: $IMAGE_NAME" && \
-            docker pull $IMAGE_NAME:latest && \
-            docker stop portfolio || true && \
-            docker rm portfolio || true && \
+            IMAGE_NAME="ghcr.io/$(echo "$GITHUB_REPOSITORY" | tr '[:upper:]' '[:lower:]')"
+            echo "Using image: $IMAGE_NAME"
+            docker pull $IMAGE_NAME:latest
+            docker stop portfolio || true
+            docker rm portfolio || true
             docker run -d --name portfolio -p 2425:80 $IMAGE_NAME:latest
