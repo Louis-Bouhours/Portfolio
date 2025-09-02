@@ -23,7 +23,7 @@ jobs:
         uses: github/codeql-action/analyze@v3
 
       - name: Run Trivy vulnerability scanner
-        uses: aquasecurity/trivy-action@0.20.0
+        uses: aquasecurity/trivy-action@0.33.0
         with:
           scan-type: fs
           scan-ref: .
