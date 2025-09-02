@@ -80,6 +80,8 @@ jobs:
           script: |
             docker login ghcr.io -u ${{ github.actor }} -p ${{ secrets.GITHUB_TOKEN }}
             IMAGE_NAME="ghcr.io/$(echo $GITHUB_REPOSITORY | tr '[:upper:]' '[:lower:]')"
+            echo "IMAGE_NAME=$IMAGE_NAME" >> $GITHUB_ENV
+            echo "IMAGE_NAME=$IMAGE_NAME"
             docker pull $IMAGE_NAME:latest
             docker stop portfolio || true
             docker rm portfolio || true
