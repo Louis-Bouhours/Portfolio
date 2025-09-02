@@ -1174,7 +1174,6 @@ button.swiper-pagination-bullet {
 .gclose svg {
     display: block;
     width  : 25px;
-    height : auto;
     margin : 0;
     padding: 0;
 }
@@ -1273,7 +1272,6 @@ iframe.wait-autoplay {
 
 .glightbox-clean .gclose svg {
     width : 18px;
-    height: auto;
 }
 
 .glightbox-clean .gclose:hover {

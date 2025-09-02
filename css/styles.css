@@ -3110,7 +3110,7 @@ td:last-child {
 .s-header__logo {
     z-index    : 3;
     line-height: 1;
-    transform  : translate(0.2rem, -0.05em);
+    transform  : translate(-50%,50%);
 }
 
 .s-header__logo a {
@@ -4441,4 +4441,61 @@ td:last-child {
     .ss-go-top {
         right: -2rem;
     }
+}
+
+@keyframes slide-in-out {
+    0% { transform: translateX(100%); opacity: 0; }
+    15% { transform: translateX(0); opacity: 1; }
+    85% { transform: translateX(0); opacity: 1; }
+    100% { transform: translateX(100%); opacity: 0; }
+}
+/* FIN DU FICHIER ORIGINAL */
+.animate-slide-in-out {
+    animation: slide-in-out 3.3s ease-in-out forwards;
+}
+
+
+/* ===================================================================
+ * # Styles personnalisés pour la barre de recherche GitHub
+ * ------------------------------------------------------------------- */
+.search-container {
+    position: relative !important;
+    width: 300px !important;
+}
+
+.search-container input[type="text"] {
+    width: 100% !important;
+    height: 48px !important;
+    padding: 10px 40px 10px 15px !important;
+    background-color: #2f302f !important;
+    border: 1px solid #474747 !important;
+    border-radius: 5px !important;
+    color: var(--color-white) !important;
+    font-size: 1.5rem !important;
+    transition: border-color 0.3s ease !important;
+    margin-bottom: 0 !important; /* Ajout pour annuler la marge par défaut des inputs */
+}
+
+.search-container input[type="text"]::placeholder {
+    color: var(--color-gray-15) !important;
+}
+
+.search-container input[type="text"]:focus {
+    outline: none !important;
+    border-color: var(--color-1) !important;
+}
+
+.search-container .search-icon {
+    position: absolute !important;
+    top: 50% !important;
+    right: 15px !important;
+    transform: translateY(- ৫০%) !important;
+    width: 20px !important;
+    height: 20px !important;
+    pointer-events: none !important;
+    max-width: none !important; /* Ajout pour contrer la règle globale */
+}
+
+.search-container .search-icon path {
+    stroke: var(--color-gray-15) !important;
 }
