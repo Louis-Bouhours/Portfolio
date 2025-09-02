@@ -100,7 +100,7 @@ jobs:
             docker rm portfolio || true
             
             echo "Starting the new container..."
-            docker run -d --name portfolio -p 2425:80 "ghcr.io/louis-bouhours/portfolio:latest"
+            docker run -d --name portfolio -p 127.0.0.1:2425:80 "ghcr.io/louis-bouhours/portfolio:latest"
             
             echo "Logging out from GitHub Container Registry..."
             docker logout ghcr.io
