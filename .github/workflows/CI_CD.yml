@@ -89,18 +89,18 @@ jobs:
             docker login ghcr.io -u "$GH_USER" -p "$GH_TOKEN"
             
             # Use the repository variable to be more dynamic
-            IMAGE_NAME="ghcr.io/$GH_REPO"
-            echo "Using image: $IMAGE_NAME:latest"
+            IMAGE_NAME="ghcr.io/louis-bouhours/portfolio"
+            echo "Using image: $ghcr.io/louis-bouhours/portfolio:latest"
             
             echo "Pulling the latest image..."
-            docker pull "$IMAGE_NAME:latest"
+            docker pull "ghcr.io/louis-bouhours/portfolio:latest"
             
             echo "Stopping and removing the old container..."
             docker stop portfolio || true
             docker rm portfolio || true
             
             echo "Starting the new container..."
-            docker run -d --name portfolio -p 2425:80 "$IMAGE_NAME:latest"
+            docker run -d --name portfolio -p 2425:80 "ghcr.io/louis-bouhours/portfolio:latest"
             
             echo "Logging out from GitHub Container Registry..."
             docker logout ghcr.io
