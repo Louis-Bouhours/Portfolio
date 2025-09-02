@@ -68,6 +68,8 @@ jobs:
   deploy:
     name: Deploy to VPS
     runs-on: ubuntu-latest
+    permissions:
+      packages: read
     needs: [docker-release]
     steps:
       - name: Deploy over SSH
