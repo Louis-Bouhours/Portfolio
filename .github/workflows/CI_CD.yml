@@ -55,8 +55,8 @@ jobs:
 
       - name: Push Docker image
         run: |
-          IMAGE_NAME=ghcr.io/${ GITHUB_REPOSITORY,, }
-          IMAGE_NAME=$(echo "ghcr.io/${{ github.repository }}" | tr '[:upper:]' '[:lower:]')
+          IMAGE_NAME=ghcr.io/${GITHUB_REPOSITORY,, }
+          IMAGE_NAME=$(echo "ghcr.io/${GITHUB_REPOSITORY,, }" | tr '[:upper:]' '[:lower:]')
           docker push $IMAGE_NAME:latest
           docker push $IMAGE_NAME:${{ github.run_number }}
 
@@ -67,7 +67,7 @@ jobs:
           name: Release v${{ github.run_number }}
           body: |
             New release generated
-            - Image Docker published : ghcr.io/${{ github.repository }}:latest
+            - Image Docker published : ghcr.io/${ GITHUB_REPOSITORY,,}:latest
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
