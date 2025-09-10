@@ -5,7 +5,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Louis Bouhours | Portfolio</title>
 
-    <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
     <script>
         tailwind.config = {
@@ -41,6 +40,8 @@
                         'slide-in-right': 'slideInRight 0.5s ease-in-out',
                         'slide-in-left': 'slideInLeft 0.5s ease-in-out',
                         'bounce-slow': 'bounce 3s infinite',
+                        'cursor-blink': 'cursorBlink 1s infinite',
+                        'float-logo': 'floatLogo 3s ease-in-out infinite',
                     },
                     keyframes: {
                         fadeIn: {
@@ -59,18 +60,24 @@
                             '0%': { transform: 'translateX(-50px)', opacity: '0' },
                             '100%': { transform: 'translateX(0)', opacity: '1' },
                         },
+                        cursorBlink: {
+                            '0%, 100%': { opacity: '1' },
+                            '50%': { opacity: '0' },
+                        },
+                        floatLogo: {
+                            '0%, 100%': { transform: 'translateY(0)' },
+                            '50%': { transform: 'translateY(-10px)' },
+                        }
                     },
                 }
             }
         }
     </script>
 
-    <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Castoro:ital@0;1&family=Public+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,500;1,600;1,700&display=swap" rel="stylesheet">
 
-    <!-- Favicons -->
     <link rel="apple-touch-icon" sizes="180x180" href="180x180.webp">
     <link rel="icon" type="image/webp" sizes="32x32" href="32x32.webp">
     <link rel="icon" type="image/webp" sizes="16x16" href="16x16.webp">
@@ -450,11 +457,212 @@
                 transform: translateY(0);
             }
         }
+
+        /* Terminal Style for About Section */
+        .terminal {
+            background-color: #1e1e1e;
+            border-radius: 8px;
+            box-shadow: 0 10px 30px -5px rgba(0, 0, 0, 0.5);
+            overflow: hidden;
+            font-family: 'Consolas', monospace;
+            width: 100%;
+        }
+
+        .terminal-header {
+            background-color: #333;
+            padding: 8px 16px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .terminal-title {
+            color: #ddd;
+            font-size: 14px;
+        }
+
+        .terminal-controls {
+            display: flex;
+            gap: 8px;
+        }
+
+        .terminal-control {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+        }
+
+        .terminal-control.close {
+            background-color: #ff5f56;
+        }
+
+        .terminal-control.minimize {
+            background-color: #ffbd2e;
+        }
+
+        .terminal-control.maximize {
+            background-color: #27c93f;
+        }
+
+        .terminal-body {
+            padding: 16px;
+            color: #f8f8f8;
+            min-height: 300px;
+            max-height: 600px;
+            overflow-y: auto;
+        }
+
+        .command-line {
+            margin-bottom: 8px;
+            display: flex;
+        }
+
+        .prompt {
+            color: #27c93f;
+            margin-right: 8px;
+            font-weight: bold;
+        }
+
+        .command {
+            color: #ddd;
+        }
+
+        .output-line {
+            margin-bottom: 12px;
+            overflow: hidden;
+            white-space: pre-wrap;
+            word-break: break-word;
+            line-height: 1.5;
+        }
+
+        .cursor {
+            display: inline-block;
+            width: 8px;
+            height: 18px;
+            background-color: #ddd;
+            animation: cursor-blink 1s infinite;
+            vertical-align: middle;
+            margin-left: 2px;
+        }
+
+        @keyframes cursor-blink {
+            0%, 100% {
+                opacity: 1;
+            }
+            50% {
+                opacity: 0;
+            }
+        }
+
+        @keyframes typing {
+            from {
+                width: 0;
+            }
+            to {
+                width: 100%;
+            }
+        }
+
+        .typing-animation {
+            overflow: hidden;
+            display: inline-block;
+            white-space: nowrap;
+            animation: typing 3s steps(40, end);
+        }
+
+        /* Make logo bigger and more immersive */
+        .logo-container {
+            position: relative;
+            display: flex;
+            align-items: center;
+            z-index: 10;
+        }
+
+        .logo-image {
+            height: 3.5rem;
+            width: auto;
+            transition: all 0.3s ease;
+            filter: drop-shadow(0 0 8px rgba(199, 62, 29, 0.5));
+            animation: floatLogo 3s ease-in-out infinite;
+        }
+
+        @keyframes floatLogo {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-5px); }
+        }
+
+        /* Output styles for terminal */
+        .output-info {
+            color: #64B5F6;
+        }
+
+        .output-warning {
+            color: #FFAB40;
+        }
+
+        .output-error {
+            color: #EF5350;
+        }
+
+        .output-success {
+            color: #66BB6A;
+        }
+
+        .output-highlight {
+            color: #C73E1D;
+            font-weight: bold;
+        }
+
+        /* Responsive improvements */
+        @media (max-width: 640px) {
+            .terminal-body {
+                min-height: 280px;
+                padding: 12px;
+                font-size: 14px;
+            }
+
+            .logo-image {
+                height: 3rem;
+            }
+
+            .terminal-title {
+                font-size: 12px;
+            }
+
+            .terminal-control {
+                width: 10px;
+                height: 10px;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .grid-cols-1 {
+                grid-template-columns: 1fr;
+            }
+
+            .text-5xl {
+                font-size: 2.5rem;
+            }
+
+            .text-4xl {
+                font-size: 2rem;
+            }
+        }
+
+        @media (min-width: 1024px) {
+            .logo-image {
+                height: 4rem;
+            }
+
+            .terminal {
+                max-width: 90%;
+                margin: 0 auto;
+            }
+        }
     </style>
 </head>
 
 <body class="bg-gray-900 text-gray-200 font-sans overflow-x-hidden">
-<!-- Preloader -->
 <div id="preloader">
     <div class="loader">
         <div></div>
@@ -463,15 +671,14 @@
     </div>
 </div>
 
-<!-- Navbar -->
 <nav id="navbar" class="fixed top-0 left-0 w-full z-50 transition-all duration-300 bg-opacity-0">
     <div class="container mx-auto px-6 py-4">
         <div class="flex items-center justify-between">
-            <a href="#" class="flex items-center">
-                <img src="images/imagev2.webp" alt="Logo" class="h-12 w-auto">
+            <a href="#" class="logo-container">
+                <img src="images/imagev2-removebg-preview.webp" alt="Logo" class="logo-image">
+                <div class="absolute inset-0 bg-primary-600/20 blur-xl rounded-full -z-10"></div>
             </a>
 
-            <!-- Desktop Navigation -->
             <div class="hidden md:flex space-x-8">
                 <a href="#home" class="text-white hover:text-primary-600 transition-colors duration-300">Accueil</a>
                 <a href="#about" class="text-gray-400 hover:text-white transition-colors duration-300">À Propos</a>
@@ -479,7 +686,6 @@
                 <a href="#contact" class="text-gray-400 hover:text-white transition-colors duration-300">Contact</a>
             </div>
 
-            <!-- Mobile menu button -->
             <div class="md:hidden">
                 <button id="menu-toggle" class="text-white focus:outline-none">
                     <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
@@ -489,7 +695,6 @@
             </div>
         </div>
 
-        <!-- Mobile Navigation -->
         <div id="mobile-menu" class="hidden md:hidden mt-4 bg-gray-900 rounded-lg p-4 animate-fade-in">
             <div class="flex flex-col space-y-4">
                 <a href="#home" class="text-white hover:text-primary-600 transition-colors duration-300">Accueil</a>
@@ -501,20 +706,15 @@
     </div>
 </nav>
 
-<!-- Hero Section -->
 <section id="home" class="relative min-h-screen flex items-center">
-    <!-- Image de fond avec overlay -->
     <div class="absolute inset-0 z-0">
         <img src="images/BK%20portfolio.webp" alt="Background" class="object-cover w-full h-full">
-        <!-- Overlay plus sombre pour augmenter le contraste -->
         <div class="absolute inset-0 bg-black/70"></div>
     </div>
 
     <div class="container mx-auto px-6 z-20 pt-32 md:pt-0 relative">
-        <!-- Grille avec texte d'introduction -->
         <div class="grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
             <div>
-                <!-- Texte d'introduction avec arrière-plan semi-transparent pour améliorer la lisibilité -->
                 <div class="bg-black/40 p-6 rounded-lg backdrop-blur-sm">
                     <h3 class="text-primary-600 font-medium text-lg tracking-wider mb-4">Bonjour</h3>
                     <h1 class="text-5xl md:text-6xl lg:text-7xl font-serif font-bold text-white leading-tight">
@@ -532,7 +732,6 @@
             <div class="hidden md:block"></div>
         </div>
 
-        <!-- Social Links -->
         <div class="absolute bottom-16 right-6 md:right-12 flex flex-col space-y-4 z-30">
             <a href="https://github.com/Louis-Bouhours" target="_blank" rel="noopener noreferrer" class="text-white hover:text-primary-600 transition-colors duration-300">
                 <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
@@ -546,7 +745,6 @@
             </a>
         </div>
 
-        <!-- Scroll Down Indicator -->
         <div class="absolute bottom-8 left-1/2 transform -translate-x-1/2 flex flex-col items-center z-30">
             <span class="text-white/70 text-sm mb-2">Scroll Down</span>
             <svg class="w-6 h-6 text-white/70 animate-bounce-slow" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
@@ -554,7 +752,6 @@
             </svg>
         </div>
 
-        <!-- CV Download -->
         <div class="absolute bottom-8 right-1/2 transform translate-x-1/2 md:translate-x-0 md:right-8 z-30">
             <a href="#" class="flex items-center text-white group">
                 <span class="hidden md:block h-[1px] w-12 bg-white/50 mr-4 group-hover:bg-primary-600 transition-colors duration-300"></span>
@@ -564,7 +761,6 @@
     </div>
 </section>
 
-<!-- About Section -->
 <section id="about" class="py-20 bg-gray-800">
     <div class="container mx-auto px-6">
         <div class="mb-16">
@@ -576,17 +772,83 @@
 
         <div class="grid grid-cols-1 lg:grid-cols-12 gap-12">
             <div class="lg:col-span-7">
-                <p class="text-xl text-gray-300 mb-6">
-                    Actuellement étudiant en informatique, je suis passionné par la résolution de problèmes complexes et la création de solutions logicielles efficaces. J'aime explorer les nouvelles technologies et je suis toujours à la recherche de nouveaux défis et connaissances pour développer mes compétences en programmation et en conception de systèmes.
-                </p>
-                <p class="text-xl text-gray-300 mb-8">
-                    Je suis rigoureux, motivé et j'apprécie le travail en équipe. Mon objectif est de mettre à profit ma créativité et mes connaissances techniques pour contribuer à des projets innovants et stimulants. N'hésitez pas à me contacter pour discuter de collaboration ou d'opportunités.
-                </p>
+                <!-- Terminal style for ALL the text -->
+                <div class="terminal mb-12">
+                    <div class="terminal-header">
+                        <div class="terminal-controls">
+                            <div class="terminal-control close"></div>
+                            <div class="terminal-control minimize"></div>
+                            <div class="terminal-control maximize"></div>
+                        </div>
+                        <div class="terminal-title">louis@portfolio:~/about</div>
+                    </div>
+                    <div class="terminal-body" id="terminal-body">
+                        <div class="command-line">
+                            <span class="prompt">louis@portfolio:~$</span>
+                            <span class="command">whoami</span>
+                        </div>
+                        <div class="output-line output-highlight">
+                            Louis Bouhours - Développeur DevOps & Admin Systèmes
+                        </div>
+
+                        <div class="command-line">
+                            <span class="prompt">louis@portfolio:~$</span>
+                            <span class="command">cat about_me.txt</span>
+                        </div>
+                        <div id="typing-text-1" class="output-line">
+                            Actuellement étudiant en informatique, je suis passionné par la résolution de problèmes complexes et la création de solutions logicielles efficaces. J'aime explorer les nouvelles technologies et je suis toujours à la recherche de nouveaux défis et connaissances pour développer mes compétences en programmation et en conception de systèmes.
+                        </div>
+
+                        <div class="command-line">
+                            <span class="prompt">louis@portfolio:~$</span>
+                            <span class="command">cat profile.txt</span>
+                        </div>
+                        <div id="typing-text-2" class="output-line">
+                            Je suis rigoureux, motivé et j'apprécie le travail en équipe. Mon objectif est de mettre à profit ma créativité et mes connaissances techniques pour contribuer à des projets innovants et stimulants.
+                        </div>
+
+                        <div class="command-line">
+                            <span class="prompt">louis@portfolio:~$</span>
+                            <span class="command">echo "Contactez-moi pour plus d'informations."</span>
+                        </div>
+                        <div id="typing-text-3" class="output-line output-info">
+                            N'hésitez pas à me contacter pour discuter de collaboration ou d'opportunités.
+                        </div>
+
+                        <div class="command-line">
+                            <span class="prompt">louis@portfolio:~$</span>
+                            <span class="command">date</span>
+                        </div>
+                        <div class="output-line">
+                            mer. 10 sept. 2025 09:18:17 UTC
+                        </div>
+
+                        <div class="command-line">
+                            <span class="prompt">louis@portfolio:~$</span>
+                            <span class="command">ls -la ~/projects</span>
+                        </div>
+                        <div class="output-line">
+                            total 5<br>
+                            drwxr-xr-x  2 louis devs 4096 sept. 10 09:00 .<br>
+                            drwxr-xr-x 21 louis devs 4096 sept. 10 09:00 ..<br>
+                            -rw-r--r--  1 louis devs  512 sept.  5 10:23 <span class="output-highlight">ecrireback</span><br>
+                            -rw-r--r--  1 louis devs  640 sept.  7 14:18 <span class="output-highlight">Portfolio</span><br>
+                            -rw-r--r--  1 louis devs  512 sept.  5 10:23 <span class="output-highlight">ecrirefront</span><br>
+                            -rw-r--r--  1 louis devs  256 juin  15 16:42 <span class="output-highlight">JavaCours1</span><br>
+                            -rw-r--r--  1 louis devs  128 mai   29 11:37 <span class="output-highlight">Louis-Bouhours</span>
+                        </div>
+
+                        <div class="command-line">
+                            <span class="prompt">louis@portfolio:~$</span>
+                            <span class="command" id="current-command"></span>
+                            <span class="cursor"></span>
+                        </div>
+                    </div>
+                </div>
             </div>
 
             <div class="lg:col-span-5">
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
-                    <!-- Experience Block -->
                     <div class="bg-gray-900/50 rounded-xl p-6 transform hover:-translate-y-2 transition-transform duration-300">
                         <h4 class="text-xl font-bold text-white mb-4 border-l-4 border-primary-600 pl-3">Expérience</h4>
                         <ul class="space-y-4">
@@ -597,7 +859,6 @@
                         </ul>
                     </div>
 
-                    <!-- Certifications Block -->
                     <div class="bg-gray-900/50 rounded-xl p-6 transform hover:-translate-y-2 transition-transform duration-300">
                         <h4 class="text-xl font-bold text-white mb-4 border-l-4 border-primary-600 pl-3">Certifications</h4>
                         <ul class="space-y-4">
@@ -608,11 +869,9 @@
                         </ul>
                     </div>
 
-                    <!-- Skills Block -->
                     <div class="bg-gray-900/50 rounded-xl p-6 md:col-span-2 transform hover:-translate-y-2 transition-transform duration-300">
                         <h3 class="text-xl font-semibold mb-4">Compétences</h3>
 
-                        <!-- Langages de programmation -->
                         <div class="mb-4">
                             <h4 class="text-lg font-medium text-emerald-400 mb-2">Langages</h4>
                             <div class="flex flex-wrap gap-2">
@@ -621,33 +880,25 @@
                                 <span class="px-3 py-1 bg-gray-800 rounded-full text-sm">PHP</span>
                                 <span class="px-3 py-1 bg-gray-800 rounded-full text-sm">HTML/CSS</span>
                                 <span class="px-3 py-1 bg-gray-800 rounded-full text-sm">SQL</span>
-                                <span class="px-3 py-1 bg-gray-800 rounded-full text-sm">Go</span><!-- Ajout de Go -->
-                            </div>
+                                <span class="px-3 py-1 bg-gray-800 rounded-full text-sm">Go</span></div>
                         </div>
 
-                        <!-- Frameworks -->
                         <div class="mb-4">
                             <h4 class="text-lg font-medium text-emerald-400 mb-2">Frameworks</h4>
                             <div class="flex flex-wrap gap-2">
                                 <span class="px-3 py-1 bg-gray-800 rounded-full text-sm">React</span>
                                 <span class="px-3 py-1 bg-gray-800 rounded-full text-sm">Vue.js</span>
-                                <span class="px-3 py-1 bg-gray-800 rounded-full text-sm">TailwindCSS</span><!-- Ajout de TailwindCSS -->
-                                <span class="px-3 py-1 bg-gray-800 rounded-full text-sm">Gin</span>
+                                <span class="px-3 py-1 bg-gray-800 rounded-full text-sm">TailwindCSS</span><span class="px-3 py-1 bg-gray-800 rounded-full text-sm">Gin</span>
                             </div>
                         </div>
 
-                        <!-- Systèmes d'exploitation -->
                         <div class="mb-4">
                             <h4 class="text-lg font-medium text-emerald-400 mb-2">Systèmes d'exploitation</h4>
                             <div class="flex flex-wrap gap-2">
-                                <span class="px-3 py-1 bg-gray-800 rounded-full text-sm">Windows</span><!-- Ajout de Windows -->
-                                <span class="px-3 py-1 bg-gray-800 rounded-full text-sm">macOS</span><!-- Ajout de macOS -->
-                                <span class="px-3 py-1 bg-gray-800 rounded-full text-sm">Debian</span><!-- Ajout de Debian -->
-                                <span class="px-3 py-1 bg-gray-800 rounded-full text-sm">Ubuntu</span>
+                                <span class="px-3 py-1 bg-gray-800 rounded-full text-sm">Windows</span><span class="px-3 py-1 bg-gray-800 rounded-full text-sm">macOS</span><span class="px-3 py-1 bg-gray-800 rounded-full text-sm">Debian</span><span class="px-3 py-1 bg-gray-800 rounded-full text-sm">Ubuntu</span>
                             </div>
                         </div>
 
-                        <!-- Outils -->
                         <div>
                             <h4 class="text-lg font-medium text-emerald-400 mb-2">Outils</h4>
                             <div class="flex flex-wrap gap-2">
@@ -666,7 +917,6 @@
 </section>
 
 
-<!-- GitHub Repositories Section -->
 <section class="py-20 github-section">
     <div class="container mx-auto px-6">
         <div class="mb-16">
@@ -680,7 +930,6 @@
 
         <div class="github-filters mb-10">
             <div class="flex flex-col md:flex-row justify-between gap-6">
-                <!-- Filtres -->
                 <div class="flex flex-wrap items-center gap-3">
                     <span class="text-white/70 text-sm font-medium">Filtrer par:</span>
                     <div class="flex flex-wrap gap-2">
@@ -699,7 +948,6 @@
                     </div>
                 </div>
 
-                <!-- Recherche -->
                 <div class="search-container w-full md:w-64">
                     <svg class="search-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path>
@@ -710,7 +958,6 @@
         </div>
 
         <div id="repositories-grid" class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
-            <!-- Indicateur de chargement -->
             <div class="col-span-full flex flex-col items-center justify-center py-16">
                 <div class="github-loader">
                     <div class="github-loader-circle"></div>
@@ -723,7 +970,6 @@
                 <p class="text-gray-400 mt-4 font-medium">Chargement des dépôts...</p>
             </div>
 
-            <!-- Exemple de carte de dépôt (sera utilisée comme modèle par JavaScript) -->
             <template id="repo-template">
                 <div class="repo-card">
                     <div class="repo-header">
@@ -761,7 +1007,6 @@
             </template>
         </div>
 
-        <!-- Bouton voir plus -->
         <div class="text-center mt-12">
             <a href="https://github.com/Louis-Bouhours" target="_blank" class="view-all-btn">
                 <span>Voir tous mes dépôts sur GitHub</span>
@@ -773,11 +1018,9 @@
     </div>
 </section>
 
-<!-- Numbers Section -->
 <section class="py-20 bg-gray-800">
     <div class="container mx-auto px-6">
         <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
-            <!-- Stat 1 -->
             <div class="bg-gray-900/30 p-8 rounded-xl transform hover:scale-105 transition-transform duration-300">
                 <div class="text-5xl md:text-6xl font-bold text-white mb-2">15<span class="text-primary-600">+</span></div>
                 <h5 class="text-xl font-bold text-white mb-3">Projets Réalisés</h5>
@@ -786,7 +1029,6 @@
                 </p>
             </div>
 
-            <!-- Stat 2 -->
             <div class="bg-gray-900/30 p-8 rounded-xl transform hover:scale-105 transition-transform duration-300">
                 <div class="text-5xl md:text-6xl font-bold text-white mb-2">5<span class="text-primary-600">+</span></div>
                 <h5 class="text-xl font-bold text-white mb-3">Langages Maîtrisés</h5>
@@ -795,7 +1037,6 @@
                 </p>
             </div>
 
-            <!-- Stat 3 -->
             <div class="bg-gray-900/30 p-8 rounded-xl transform hover:scale-105 transition-transform duration-300">
                 <div class="text-5xl md:text-6xl font-bold text-white mb-2">1,500<span class="text-primary-600">+</span></div>
                 <h5 class="text-xl font-bold text-white mb-3">Contributions sur GitHub</h5>
@@ -804,7 +1045,6 @@
                 </p>
             </div>
 
-            <!-- Stat 4 -->
             <div class="bg-gray-900/30 p-8 rounded-xl transform hover:scale-105 transition-transform duration-300">
                 <div class="text-5xl md:text-6xl font-bold text-white mb-2">100<span class="text-primary-600">%</span></div>
                 <h5 class="text-xl font-bold text-white mb-3">Motivation</h5>
@@ -816,7 +1056,6 @@
     </div>
 </section>
 
-<!-- Contact Section -->
 <section id="contact" class="py-20 bg-gray-900">
     <div class="container mx-auto px-6">
         <div class="mb-16">
@@ -912,7 +1151,6 @@
     </div>
 </section>
 
-<!-- Footer -->
 <footer class="py-8 bg-dark-900 border-t border-gray-800">
     <div class="container mx-auto px-6">
         <div class="flex flex-col md:flex-row justify-between items-center">
@@ -929,117 +1167,8 @@
         </div>
     </div>
 </footer>
-
-<!-- Scripts -->
 <script src="js/plugins.js"></script>
 <script src="js/main.js"></script>
 <script src="js/script.js"></script>
-
-<script>
-    // Preloader
-    window.addEventListener('load', function() {
-        const preloader = document.getElementById('preloader');
-        setTimeout(() => {
-            preloader.style.opacity = '0';
-            setTimeout(() => {
-                preloader.style.display = 'none';
-            }, 500);
-        }, 500);
-    });
-
-    // Mobile menu toggle
-    const menuToggle = document.getElementById('menu-toggle');
-    const mobileMenu = document.getElementById('mobile-menu');
-
-    menuToggle.addEventListener('click', function() {
-        mobileMenu.classList.toggle('hidden');
-    });
-
-    // Navbar scroll effect
-    const navbar = document.getElementById('navbar');
-
-    window.addEventListener('scroll', function() {
-        if (window.scrollY > 50) {
-            navbar.classList.add('bg-dark-900/90', 'backdrop-blur-md', 'shadow-lg', 'navbar-fixed');
-        } else {
-            navbar.classList.remove('bg-dark-900/90', 'backdrop-blur-md', 'shadow-lg', 'navbar-fixed');
-        }
-    });
-
-    // Smooth scroll for anchor links
-    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-        anchor.addEventListener('click', function (e) {
-            e.preventDefault();
-
-            document.querySelector(this.getAttribute('href')).scrollIntoView({
-                behavior: 'smooth'
-            });
-
-            // Close mobile menu if open
-            if (!mobileMenu.classList.contains('hidden')) {
-                mobileMenu.classList.add('hidden');
-            }
-        });
-    });
-
-    // Active section highlighting
-    const sections = document.querySelectorAll('section');
-    const navLinks = document.querySelectorAll('nav a');
-
-    window.addEventListener('scroll', function() {
-        let current = '';
-
-        sections.forEach(section => {
-            const sectionTop = section.offsetTop;
-            const sectionHeight = section.clientHeight;
-
-            if (pageYOffset >= (sectionTop - 200)) {
-                current = section.getAttribute('id');
-            }
-        });
-
-        navLinks.forEach(link => {
-            link.classList.remove('text-white');
-            link.classList.add('text-gray-400');
-
-            if (link.getAttribute('href') === `#${current}`) {
-                link.classList.remove('text-gray-400');
-                link.classList.add('text-white');
-            }
-        });
-    });
-
-    // Contact form email functionality
-    function sendEmail(event) {
-        event.preventDefault();
-
-        const name = document.getElementById('name').value;
-        const email = document.getElementById('email').value;
-        const message = document.getElementById('message').value;
-
-        const mailtoLink = `mailto:louis.bouhours1302@gmail.com?subject=Contact depuis le portfolio&body=${encodeURIComponent(`De: ${name} (${email})\n\n${message}`)}`;
-
-        window.location.href = mailtoLink;
-    }
-
-    // GitHub repository filtering
-    document.addEventListener('DOMContentLoaded', function() {
-        const filterButtons = document.querySelectorAll('.filter-btn');
-
-        filterButtons.forEach(button => {
-            button.addEventListener('click', function() {
-                // Remove active class from all buttons
-                filterButtons.forEach(btn => btn.classList.remove('active'));
-
-                // Add active class to clicked button
-                this.classList.add('active');
-
-                // Add your filtering logic here
-                const filter = this.getAttribute('data-filter');
-                console.log(`Filtering by: ${filter}`);
-            });
-        });
-    });
-</script>
 </body>
 </html>
