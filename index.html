@@ -6,73 +6,8 @@
     <title>Louis Bouhours | Portfolio</title>
 
     <script src="https://cdn.tailwindcss.com"></script>
-    <script>
-        tailwind.config = {
-            darkMode: 'class',
-            theme: {
-                extend: {
-                    colors: {
-                        primary: {
-                            50: '#FFF5F2',
-                            100: '#FFF1ED',
-                            200: '#FFE4DB',
-                            300: '#FFD5C8',
-                            400: '#FFB7A3',
-                            500: '#FF9A7F',
-                            600: '#C73E1D',
-                            700: '#A73517',
-                            800: '#7A2711',
-                            900: '#5D1E0D',
-                        },
-                        dark: {
-                            800: '#1A1A1A',
-                            900: '#121212',
-                        }
-                    },
-                    fontFamily: {
-                        'sans': ['Public Sans', 'sans-serif'],
-                        'serif': ['Castoro', 'serif'],
-                        'mono': ['Consolas', 'monospace'],
-                    },
-                    animation: {
-                        'fade-in': 'fadeIn 0.5s ease-in-out',
-                        'slide-in': 'slideIn 0.5s ease-in-out',
-                        'slide-in-right': 'slideInRight 0.5s ease-in-out',
-                        'slide-in-left': 'slideInLeft 0.5s ease-in-out',
-                        'bounce-slow': 'bounce 3s infinite',
-                        'cursor-blink': 'cursorBlink 1s infinite',
-                        'float-logo': 'floatLogo 3s ease-in-out infinite',
-                    },
-                    keyframes: {
-                        fadeIn: {
-                            '0%': { opacity: '0' },
-                            '100%': { opacity: '1' },
-                        },
-                        slideIn: {
-                            '0%': { transform: 'translateY(50px)', opacity: '0' },
-                            '100%': { transform: 'translateY(0)', opacity: '1' },
-                        },
-                        slideInRight: {
-                            '0%': { transform: 'translateX(50px)', opacity: '0' },
-                            '100%': { transform: 'translateX(0)', opacity: '1' },
-                        },
-                        slideInLeft: {
-                            '0%': { transform: 'translateX(-50px)', opacity: '0' },
-                            '100%': { transform: 'translateX(0)', opacity: '1' },
-                        },
-                        cursorBlink: {
-                            '0%, 100%': { opacity: '1' },
-                            '50%': { opacity: '0' },
-                        },
-                        floatLogo: {
-                            '0%, 100%': { transform: 'translateY(0)' },
-                            '50%': { transform: 'translateY(-10px)' },
-                        }
-                    },
-                }
-            }
-        }
-    </script>
+    <script src="js/tailwind.config.js"></script>
+    <link rel="stylesheet" href="styles.css">
 
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -82,584 +17,6 @@
     <link rel="icon" type="image/webp" sizes="32x32" href="32x32.webp">
     <link rel="icon" type="image/webp" sizes="16x16" href="16x16.webp">
     <link rel="manifest" href="site.webmanifest">
-
-    <style>
-        /* Custom Scrollbar */
-        ::-webkit-scrollbar {
-            width: 10px;
-        }
-
-        ::-webkit-scrollbar-track {
-            background: #1a1a1a;
-        }
-
-        ::-webkit-scrollbar-thumb {
-            background: #C73E1D;
-            border-radius: 5px;
-        }
-
-        ::-webkit-scrollbar-thumb:hover {
-            background: #A73517;
-        }
-
-        /* Preloader */
-        #preloader {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background-color: #121212;
-            z-index: 9999;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-        }
-
-        .loader {
-            display: inline-block;
-            position: relative;
-            width: 80px;
-            height: 80px;
-        }
-
-        .loader div {
-            position: absolute;
-            width: 16px;
-            height: 16px;
-            border-radius: 50%;
-            background: #C73E1D;
-            animation: loader 1.2s linear infinite;
-        }
-
-        .loader div:nth-child(1) {
-            top: 8px;
-            left: 8px;
-            animation-delay: 0s;
-        }
-
-        .loader div:nth-child(2) {
-            top: 8px;
-            left: 32px;
-            animation-delay: -0.4s;
-        }
-
-        .loader div:nth-child(3) {
-            top: 8px;
-            left: 56px;
-            animation-delay: -0.8s;
-        }
-
-        @keyframes loader {
-            0%, 100% {
-                opacity: 1;
-                transform: scale(1.5);
-            }
-            50% {
-                opacity: 0.5;
-                transform: scale(1);
-            }
-        }
-
-        /* Hero section gradient overlay */
-        .hero-gradient {
-            background: linear-gradient(to right, rgba(26, 26, 26, 0.9) 0%, rgba(26, 26, 26, 0.7) 50%, rgba(26, 26, 26, 0.5) 100%);
-        }
-
-        /* Custom animations */
-        @keyframes float {
-            0% {
-                transform: translateY(0px);
-            }
-            50% {
-                transform: translateY(-20px);
-            }
-            100% {
-                transform: translateY(0px);
-            }
-        }
-
-        .float {
-            animation: float 6s ease-in-out infinite;
-        }
-
-        /* Card hover effects */
-        .project-card {
-            transition: all 0.3s ease;
-        }
-
-        .project-card:hover {
-            transform: translateY(-10px);
-            box-shadow: 0 20px 25px -5px rgba(199, 62, 29, 0.1), 0 10px 10px -5px rgba(199, 62, 29, 0.04);
-        }
-
-        /* Repo card hover effects */
-        .repo-card {
-            transition: all 0.3s ease;
-            position: relative;
-            background-color: rgba(26, 26, 26, 0.5);
-            border: 1px solid rgba(75, 75, 75, 0.3);
-            border-radius: 0.75rem;
-            overflow: hidden;
-        }
-
-        .repo-card:hover {
-            transform: translateY(-5px);
-            border-color: rgba(199, 62, 29, 0.3);
-            box-shadow: 0 10px 25px -5px rgba(199, 62, 29, 0.1);
-        }
-
-        .repo-card .repo-header {
-            padding: 1.25rem;
-            border-bottom: 1px solid rgba(75, 75, 75, 0.2);
-        }
-
-        .repo-card .repo-body {
-            padding: 1.25rem;
-        }
-
-        .repo-card .repo-footer {
-            padding: 0.75rem 1.25rem;
-            background-color: rgba(18, 18, 18, 0.3);
-            border-top: 1px solid rgba(75, 75, 75, 0.2);
-        }
-
-        .repo-card .repo-name {
-            font-weight: 600;
-            color: white;
-            transition: color 0.2s ease;
-        }
-
-        .repo-card:hover .repo-name {
-            color: #C73E1D;
-        }
-
-        .repo-tag {
-            display: inline-block;
-            padding: 0.25rem 0.75rem;
-            font-size: 0.75rem;
-            font-weight: 500;
-            border-radius: 9999px;
-            background-color: rgba(75, 75, 75, 0.3);
-            color: #d1d5db;
-        }
-
-        .language-tag {
-            display: inline-flex;
-            align-items: center;
-            padding: 0.25rem 0.75rem;
-            font-size: 0.75rem;
-            font-weight: 500;
-            border-radius: 0.375rem;
-            background-color: rgba(59, 130, 246, 0.1);
-            color: #93c5fd;
-        }
-
-        .language-tag::before {
-            content: "";
-            display: inline-block;
-            width: 0.625rem;
-            height: 0.625rem;
-            border-radius: 50%;
-            margin-right: 0.375rem;
-        }
-
-        .language-tag.javascript::before {
-            background-color: #f1e05a;
-        }
-
-        .language-tag.python::before {
-            background-color: #3572A5;
-        }
-
-        .language-tag.go::before {
-            background-color: #00ADD8;
-        }
-
-        .language-tag.typescript::before {
-            background-color: #2b7489;
-        }
-
-        .language-tag.html::before {
-            background-color: #e34c26;
-        }
-
-        .language-tag.css::before {
-            background-color: #563d7c;
-        }
-
-        /* GitHub section styles */
-        .github-section {
-            position: relative;
-            background: linear-gradient(to bottom, #111111, #1a1a1a);
-        }
-
-        .github-section::before {
-            content: "";
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 1px;
-            background: linear-gradient(to right, #C73E1D, transparent);
-        }
-
-        .github-filters {
-            background-color: rgba(26, 26, 26, 0.7);
-            backdrop-filter: blur(10px);
-            border: 1px solid rgba(75, 75, 75, 0.3);
-            border-radius: 0.75rem;
-            padding: 1rem 1.5rem;
-            margin-bottom: 2rem;
-        }
-
-        .filter-btn {
-            position: relative;
-            overflow: hidden;
-            transition: all 0.3s ease;
-        }
-
-        .filter-btn.active {
-            background-color: #C73E1D;
-            color: white;
-        }
-
-        .filter-btn:not(.active):hover {
-            background-color: rgba(199, 62, 29, 0.2);
-            color: white;
-        }
-
-        .search-container {
-            position: relative;
-        }
-
-        .search-container input {
-            width: 100%;
-            padding: 0.625rem 1rem 0.625rem 2.5rem;
-            background-color: rgba(38, 38, 38, 0.7);
-            border: 1px solid rgba(75, 75, 75, 0.5);
-            border-radius: 0.5rem;
-            color: white;
-            transition: all 0.3s ease;
-        }
-
-        .search-container input:focus {
-            border-color: #C73E1D;
-            box-shadow: 0 0 0 3px rgba(199, 62, 29, 0.2);
-            outline: none;
-        }
-
-        .search-icon {
-            position: absolute;
-            top: 50%;
-            left: 0.75rem;
-            transform: translateY(-50%);
-            width: 1rem;
-            height: 1rem;
-            color: #9ca3af;
-            pointer-events: none;
-        }
-
-        .repo-stats {
-            display: flex;
-            align-items: center;
-            gap: 1rem;
-            color: #9ca3af;
-            font-size: 0.75rem;
-        }
-
-        .repo-stat {
-            display: flex;
-            align-items: center;
-        }
-
-        .repo-stat-icon {
-            margin-right: 0.25rem;
-        }
-
-        .repo-updated {
-            font-size: 0.75rem;
-            color: #6b7280;
-        }
-
-        .view-all-btn {
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
-            gap: 0.5rem;
-            padding: 0.75rem 1.5rem;
-            background-color: rgba(26, 26, 26, 0.7);
-            border: 1px solid rgba(75, 75, 75, 0.5);
-            border-radius: 0.5rem;
-            color: white;
-            font-weight: 500;
-            transition: all 0.3s ease;
-        }
-
-        .view-all-btn:hover {
-            background-color: rgba(199, 62, 29, 0.1);
-            border-color: #C73E1D;
-        }
-
-        .view-all-btn .icon {
-            transition: transform 0.2s ease;
-        }
-
-        .view-all-btn:hover .icon {
-            transform: translateX(4px);
-        }
-
-        .github-loader {
-            position: relative;
-            width: 5rem;
-            height: 5rem;
-        }
-
-        .github-loader-circle {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            border: 4px solid rgba(75, 75, 75, 0.2);
-            border-top-color: #C73E1D;
-            border-radius: 50%;
-            animation: spin 1.5s linear infinite;
-        }
-
-        @keyframes spin {
-            to {
-                transform: rotate(360deg);
-            }
-        }
-
-        .animate-slide-in-out {
-            animation: slide-in-out 3.3s ease-in-out forwards;
-        }
-
-        @keyframes slide-in-out {
-            0% { transform: translateX(100%); opacity: 0; }
-            15% { transform: translateX(0); opacity: 1; }
-            85% { transform: translateX(0); opacity: 1; }
-            100% { transform: translateX(100%); opacity: 0; }
-        }
-
-        /* Navbar animation */
-        .navbar-fixed {
-            animation: slideDown 0.5s;
-        }
-
-        @keyframes slideDown {
-            from {
-                transform: translateY(-100%);
-            }
-            to {
-                transform: translateY(0);
-            }
-        }
-
-        /* Terminal Style for About Section */
-        .terminal {
-            background-color: #1e1e1e;
-            border-radius: 8px;
-            box-shadow: 0 10px 30px -5px rgba(0, 0, 0, 0.5);
-            overflow: hidden;
-            font-family: 'Consolas', monospace;
-            width: 100%;
-        }
-
-        .terminal-header {
-            background-color: #333;
-            padding: 8px 16px;
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-        }
-
-        .terminal-title {
-            color: #ddd;
-            font-size: 14px;
-        }
-
-        .terminal-controls {
-            display: flex;
-            gap: 8px;
-        }
-
-        .terminal-control {
-            width: 12px;
-            height: 12px;
-            border-radius: 50%;
-        }
-
-        .terminal-control.close {
-            background-color: #ff5f56;
-        }
-
-        .terminal-control.minimize {
-            background-color: #ffbd2e;
-        }
-
-        .terminal-control.maximize {
-            background-color: #27c93f;
-        }
-
-        .terminal-body {
-            padding: 16px;
-            color: #f8f8f8;
-            min-height: 300px;
-            max-height: 600px;
-            overflow-y: auto;
-        }
-
-        .command-line {
-            margin-bottom: 8px;
-            display: flex;
-        }
-
-        .prompt {
-            color: #27c93f;
-            margin-right: 8px;
-            font-weight: bold;
-        }
-
-        .command {
-            color: #ddd;
-        }
-
-        .output-line {
-            margin-bottom: 12px;
-            overflow: hidden;
-            white-space: pre-wrap;
-            word-break: break-word;
-            line-height: 1.5;
-        }
-
-        .cursor {
-            display: inline-block;
-            width: 8px;
-            height: 18px;
-            background-color: #ddd;
-            animation: cursor-blink 1s infinite;
-            vertical-align: middle;
-            margin-left: 2px;
-        }
-
-        @keyframes cursor-blink {
-            0%, 100% {
-                opacity: 1;
-            }
-            50% {
-                opacity: 0;
-            }
-        }
-
-        @keyframes typing {
-            from {
-                width: 0;
-            }
-            to {
-                width: 100%;
-            }
-        }
-
-        .typing-animation {
-            overflow: hidden;
-            display: inline-block;
-            white-space: nowrap;
-            animation: typing 3s steps(40, end);
-        }
-
-        /* Make logo bigger and more immersive */
-        .logo-container {
-            position: relative;
-            display: flex;
-            align-items: center;
-            z-index: 10;
-        }
-
-        .logo-image {
-            height: 3.5rem;
-            width: auto;
-            transition: all 0.3s ease;
-            filter: drop-shadow(0 0 8px rgba(199, 62, 29, 0.5));
-            animation: floatLogo 3s ease-in-out infinite;
-        }
-
-        @keyframes floatLogo {
-            0%, 100% { transform: translateY(0); }
-            50% { transform: translateY(-5px); }
-        }
-
-        /* Output styles for terminal */
-        .output-info {
-            color: #64B5F6;
-        }
-
-        .output-warning {
-            color: #FFAB40;
-        }
-
-        .output-error {
-            color: #EF5350;
-        }
-
-        .output-success {
-            color: #66BB6A;
-        }
-
-        .output-highlight {
-            color: #C73E1D;
-            font-weight: bold;
-        }
-
-        /* Responsive improvements */
-        @media (max-width: 640px) {
-            .terminal-body {
-                min-height: 280px;
-                padding: 12px;
-                font-size: 14px;
-            }
-
-            .logo-image {
-                height: 3rem;
-            }
-
-            .terminal-title {
-                font-size: 12px;
-            }
-
-            .terminal-control {
-                width: 10px;
-                height: 10px;
-            }
-        }
-
-        @media (max-width: 768px) {
-            .grid-cols-1 {
-                grid-template-columns: 1fr;
-            }
-
-            .text-5xl {
-                font-size: 2.5rem;
-            }
-
-            .text-4xl {
-                font-size: 2rem;
-            }
-        }
-
-        @media (min-width: 1024px) {
-            .logo-image {
-                height: 4rem;
-            }
-
-            .terminal {
-                max-width: 90%;
-                margin: 0 auto;
-            }
-        }
-    </style>
 </head>
 
 <body class="bg-gray-900 text-gray-200 font-sans overflow-x-hidden">
@@ -745,15 +102,8 @@
             </a>
         </div>
 
-        <div class="absolute bottom-8 left-1/2 transform -translate-x-1/2 flex flex-col items-center z-30">
-            <span class="text-white/70 text-sm mb-2">Scroll Down</span>
-            <svg class="w-6 h-6 text-white/70 animate-bounce-slow" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 14l-7 7m0 0l-7-7m7 7V3"></path>
-            </svg>
-        </div>
-
         <div class="absolute bottom-8 right-1/2 transform translate-x-1/2 md:translate-x-0 md:right-8 z-30">
-            <a href="#" class="flex items-center text-white group">
+            <a href="images/cv.pdf" download="CV_Louis_Bouhours.pdf" class="flex items-center text-white group">
                 <span class="hidden md:block h-[1px] w-12 bg-white/50 mr-4 group-hover:bg-primary-600 transition-colors duration-300"></span>
                 <span class="group-hover:text-primary-600 transition-colors duration-300">Télécharger mon CV</span>
             </a>
@@ -772,7 +122,6 @@
 
         <div class="grid grid-cols-1 lg:grid-cols-12 gap-12">
             <div class="lg:col-span-7">
-                <!-- Terminal style for ALL the text -->
                 <div class="terminal mb-12">
                     <div class="terminal-header">
                         <div class="terminal-controls">
@@ -916,6 +265,68 @@
     </div>
 </section>
 
+<section id="projects" class="py-20 bg-gray-800">
+    <div class="container mx-auto px-6">
+        <div class="mb-16">
+            <div class="relative">
+                <span class="absolute -top-16 left-0 text-9xl font-bold text-gray-700/20">02</span>
+                <h2 class="text-4xl md:text-5xl font-serif font-bold text-white relative z-10">Projets <span class="text-primary-600">Sélectionnés</span>.</h2>
+                <div class="w-24 h-1 bg-primary-600 mt-4"></div>
+            </div>
+            <p class="text-xl text-gray-300 mt-6 max-w-3xl">Découvrez une sélection de mes projets, mettant en avant mes compétences en développement et en conception de systèmes.</p>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+            <a href="https://ecrire.bouhours-louis.fr" target="_blank" class="project-card bg-gray-900/50 rounded-xl overflow-hidden transform transition-all duration-300 hover:-translate-y-2 hover:shadow-xl">
+                <img src="images/projets/ecrire/ecrire.webp" alt="Le front du projet Ecrire" class="w-full h-48 object-cover">
+                <div class="p-6">
+                    <h3 class="text-xl font-bold text-white mb-2">Ecrire</h3>
+                    <p class="text-gray-400 text-sm mb-4 line-clamp-2">Une plateforme collaborative pour l'écriture et le partage de documents, avec une interface moderne et intuitive.</p>
+                    <div class="flex flex-wrap gap-2 mb-4">
+                        <span class="language-tag javascript">JavaScript</span>
+                        <span class="language-tag vue">Vue.js</span>
+                        <span class="language-tag tailwindcss">TailwindCSS</span>
+                    </div>
+                    <div class="flex justify-between items-center">
+                        <span class="text-primary-600 font-medium">Voir le projet →</span>
+                        <div class="repo-stats">
+                            <div class="repo-stat">
+                                <svg class="repo-stat-icon w-4 h-4" fill="currentColor" viewBox="0 0 16 16">
+                                    <path d="M8 .25a.75.75 0 01.673.418l1.882 3.815 4.21.612a.75.75 0 01.416 1.279l-3.046 2.97.719 4.192a.75.75 0 01-1.088.791L8 12.347l-3.766 1.98a.75.75 0 01-1.088-.79l.72-4.194L.818 6.374a.75.75 0 01.416-1.28l4.21-.611L7.327.668A.75.75 0 018 .25z"></path>
+                                </svg>
+                                <span>12</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </a>
+
+            <a href="https://meteo.bouhours-louis.fr" target="_blank" class="project-card bg-gray-900/50 rounded-xl overflow-hidden transform transition-all duration-300 hover:-translate-y-2 hover:shadow-xl">
+                <img src="images/meteo_img.avif" alt="Application Météo" class="w-full h-48 object-cover">
+                <div class="p-6">
+                    <h3 class="text-xl font-bold text-white mb-2">Météo</h3>
+                    <p class="text-gray-400 text-sm mb-4 line-clamp-2">Une application météo dynamique affichant les prévisions en temps réel avec une interface utilisateur épurée.</p>
+                    <div class="flex flex-wrap gap-2 mb-4">
+                        <span class="language-tag react">React</span>
+                        <span class="language-tag tailwindcss">TailwindCSS</span>
+                        <span class="language-tag api">API</span>
+                    </div>
+                    <div class="flex justify-between items-center">
+                        <span class="text-primary-600 font-medium">Voir le projet →</span>
+                        <div class="repo-stats">
+                            <div class="repo-stat">
+                                <svg class="repo-stat-icon w-4 h-4" fill="currentColor" viewBox="0 0 16 16">
+                                    <path d="M8 .25a.75.75 0 01.673.418l1.882 3.815 4.21.612a.75.75 0 01.416 1.279l-3.046 2.97.719 4.192a.75.75 0 01-1.088.791L8 12.347l-3.766 1.98a.75.75 0 01-1.088-.79l.72-4.194L.818 6.374a.75.75 0 01.416-1.28l4.21-.611L7.327.668A.75.75 0 018 .25z"></path>
+                                </svg>
+                                <span>8</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </a>
+        </div>
+    </div>
+</section>
 
 <section class="py-20 github-section">
     <div class="container mx-auto px-6">
@@ -933,18 +344,10 @@
                 <div class="flex flex-wrap items-center gap-3">
                     <span class="text-white/70 text-sm font-medium">Filtrer par:</span>
                     <div class="flex flex-wrap gap-2">
-                        <button class="filter-btn active px-4 py-2 rounded-md text-sm" data-filter="all">
-                            Tous
-                        </button>
-                        <button class="filter-btn px-4 py-2 rounded-md text-sm" data-filter="recent">
-                            Récents
-                        </button>
-                        <button class="filter-btn px-4 py-2 rounded-md text-sm" data-filter="starred">
-                            Populaires
-                        </button>
-                        <button class="filter-btn px-4 py-2 rounded-md text-sm" data-filter="archived">
-                            Archivés
-                        </button>
+                        <button class="filter-btn active px-4 py-2 rounded-md text-sm" data-filter="all">Tous</button>
+                        <button class="filter-btn px-4 py-2 rounded-md text-sm" data-filter="recent">Récents</button>
+                        <button class="filter-btn px-4 py-2 rounded-md text-sm" data-filter="starred">Populaires</button>
+                        <button class="filter-btn px-4 py-2 rounded-md text-sm" data-filter="archived">Archivés</button>
                     </div>
                 </div>
 
@@ -1014,44 +417,6 @@
                     <path d="M13.025 1l-2.847 2.828 6.176 6.176h-16.354v3.992h16.354l-6.176 6.176 2.847 2.828 10.975-11z"></path>
                 </svg>
             </a>
-        </div>
-    </div>
-</section>
-
-<section class="py-20 bg-gray-800">
-    <div class="container mx-auto px-6">
-        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
-            <div class="bg-gray-900/30 p-8 rounded-xl transform hover:scale-105 transition-transform duration-300">
-                <div class="text-5xl md:text-6xl font-bold text-white mb-2">15<span class="text-primary-600">+</span></div>
-                <h5 class="text-xl font-bold text-white mb-3">Projets Réalisés</h5>
-                <p class="text-gray-400">
-                    Nombreux projets académiques et personnels menés à bien, allant du développement web à la programmation système.
-                </p>
-            </div>
-
-            <div class="bg-gray-900/30 p-8 rounded-xl transform hover:scale-105 transition-transform duration-300">
-                <div class="text-5xl md:text-6xl font-bold text-white mb-2">5<span class="text-primary-600">+</span></div>
-                <h5 class="text-xl font-bold text-white mb-3">Langages Maîtrisés</h5>
-                <p class="text-gray-400">
-                    Compétences solides dans plusieurs langages de programmation clés pour répondre à divers besoins de développement.
-                </p>
-            </div>
-
-            <div class="bg-gray-900/30 p-8 rounded-xl transform hover:scale-105 transition-transform duration-300">
-                <div class="text-5xl md:text-6xl font-bold text-white mb-2">1,500<span class="text-primary-600">+</span></div>
-                <h5 class="text-xl font-bold text-white mb-3">Contributions sur GitHub</h5>
-                <p class="text-gray-400">
-                    Engagement actif dans la communauté open-source et gestion rigoureuse de mes projets via le versioning.
-                </p>
-            </div>
-
-            <div class="bg-gray-900/30 p-8 rounded-xl transform hover:scale-105 transition-transform duration-300">
-                <div class="text-5xl md:text-6xl font-bold text-white mb-2">100<span class="text-primary-600">%</span></div>
-                <h5 class="text-xl font-bold text-white mb-3">Motivation</h5>
-                <p class="text-gray-400">
-                    Une forte envie d'apprendre et de relever de nouveaux défis techniques pour continuellement m'améliorer.
-                </p>
-            </div>
         </div>
     </div>
 </section>
@@ -1144,7 +509,7 @@
             <a href="mailto:louis.bouhours1302@gmail.com" class="bg-primary-600 text-white py-4 rounded-lg font-medium hover:bg-primary-700 transition-colors duration-300 text-center">
                 Envoyez-moi un message
             </a>
-            <a href="#" class="bg-transparent border-2 border-white text-white py-4 rounded-lg font-medium hover:bg-white hover:text-gray-900 transition-colors duration-300 text-center">
+            <a href="images/cv.pdf" download="CV_Louis_Bouhours.pdf" class="bg-transparent border-2 border-white text-white py-4 rounded-lg font-medium hover:bg-white hover:text-gray-900 transition-colors duration-300 text-center">
                 Télécharger mon CV
             </a>
         </div>
@@ -1167,9 +532,9 @@
         </div>
     </div>
 </footer>
+
 <script src="js/plugins.js"></script>
 <script src="js/main.js"></script>
 <script src="js/script.js"></script>
 </body>
-
 </html>
