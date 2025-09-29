@@ -1,4 +1,5 @@
 name: CI_CD
+
 on:
   push:
     branches: ["main"]
@@ -40,19 +41,20 @@ jobs:
           username: ${{ github.actor }}
           password: ${{ secrets.GITHUB_TOKEN }}
 
-      - name: Set IMAGE_NAME
+      - name: Compute image name
+        id: meta
         run: |
-          IMAGE_NAME="ghcr.io/$(echo $GITHUB_REPOSITORY | tr '[:upper:]' '[:lower:]')"
-          echo "IMAGE_NAME=$IMAGE_NAME" >> $GITHUB_ENV
-          
+          IMAGE_NAME="ghcr.io/$(echo "$GITHUB_REPOSITORY" | tr '[:upper:]' '[:lower:]')"
+          echo "IMAGE_NAME=$IMAGE_NAME" >> "$GITHUB_ENV"
+
       - name: Build Docker image
         run: |
-          docker build -t $IMAGE_NAME:latest -t $IMAGE_NAME:${{ github.run_number }} .
+          docker build -t "$IMAGE_NAME:latest" -t "$IMAGE_NAME:${{ github.run_number }}" .
 
       - name: Push Docker image
         run: |
-          docker push $IMAGE_NAME:latest
-          docker push $IMAGE_NAME:${{ github.run_number }}
+          docker push "$IMAGE_NAME:latest"
+          docker push "$IMAGE_NAME:${{ github.run_number }}"
 
       - name: Create GitHub Release
         uses: softprops/action-gh-release@v2
@@ -61,7 +63,7 @@ jobs:
           name: "Release v${{ github.run_number }}"
           body: |
             generated github release
-            - Docker image: $IMAGE_NAME:latest
+            - Docker image: ${{ env.IMAGE_NAME }}:latest
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
@@ -72,35 +74,53 @@ jobs:
     steps:
       - name: Deploy over SSH
         uses: appleboy/ssh-action@v1.2.0
-        # Define environment variables for this step
         env:
           GH_USER: ${{ github.actor }}
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           GH_REPO: ${{ github.repository }}
+          # Optionnel: définis APP_PORT dans "Repository variables" (Settings > Variables) pour chaque repo
+          APP_PORT: ${{ vars.APP_PORT }}
         with:
           host: ${{ secrets.VPS_HOST }}
-          username: ${{ secrets.VPS_USER }}
+          username: deployer
           key: ${{ secrets.VPS_SSH_KEY }}
-          # Forward the environment variables defined above to the SSH session
-          envs: GH_USER,GH_TOKEN,GH_REPO
+          envs: GH_USER,GH_TOKEN,GH_REPO,APP_PORT
           script: |
-            # Use the forwarded environment variables in your script
+            set -euo pipefail
+
             echo "Logging into GitHub Container Registry..."
-            docker login ghcr.io -u "$GH_USER" -p "$GH_TOKEN"
-            
-            # Use the repository variable to be more dynamic
-            IMAGE_NAME="ghcr.io/louis-bouhours/portfolio"
-            echo "Using image: $ghcr.io/louis-bouhours/portfolio:latest"
-            
+            echo "$GH_TOKEN" | docker login ghcr.io -u "$GH_USER" --password-stdin
+
+            # Nom d'app = nom du repo en lowercase (ex: portfolio, ecrireback, etc.)
+            APP_NAME="$(basename "$GH_REPO" | tr '[:upper:]' '[:lower:]')"
+            IMAGE_NAME="ghcr.io/$(echo "$GH_REPO" | tr '[:upper:]' '[:lower:]')"
+            PORT="${APP_PORT:-2425}"
+
+            echo "Using image: $IMAGE_NAME:latest"
+            echo "App name: $APP_NAME"
+            echo "App port: $PORT"
+
+            # Arborescence multi-apps pour Caddy
+            BASE_DIR="$HOME/apps/$APP_NAME"
+            mkdir -p "$BASE_DIR"/{data,logs}
+
             echo "Pulling the latest image..."
-            docker pull "ghcr.io/louis-bouhours/portfolio:latest"
-            
-            echo "Stopping and removing the old container..."
-            docker stop portfolio || true
-            docker rm portfolio || true
-            
+            docker pull "$IMAGE_NAME:latest"
+
+            echo "Stopping and removing the old container if exists..."
+            docker stop "$APP_NAME" || true
+            docker rm "$APP_NAME" || true
+
             echo "Starting the new container..."
-            docker run -d --name portfolio -p 127.0.0.1:2425:80 "ghcr.io/louis-bouhours/portfolio:latest"
-            
+            docker run -d \
+              --name "$APP_NAME" \
+              --restart unless-stopped \
+              -p 127.0.0.1:"$PORT":80 \
+              -v "$BASE_DIR/data":/data \
+              -v "$BASE_DIR/logs":/var/log/app \
+              "$IMAGE_NAME:latest"
+
+            echo "Container '$APP_NAME' is running on 127.0.0.1:$PORT (for Caddy)."
+
             echo "Logging out from GitHub Container Registry..."
             docker logout ghcr.io
